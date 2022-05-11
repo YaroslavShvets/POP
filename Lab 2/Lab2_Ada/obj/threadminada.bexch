@@ -1,0 +1,22 @@
+[GENERATED OBJECT FILE]
+b__threadminada.o
+[PROJECT FILES]
+D:\Lab2_Ada\lab2.gpr
+20220511173056 88381160c51ab589df21264cc93a9ef7
+[BOUND OBJECT FILES]
+D:\Lab2_Ada\obj\threadminada.o
+[GENERATED SOURCE FILES]
+b__threadminada.ads
+b__threadminada.adb
+b__threadminada.ali
+[RESULTING OPTIONS]
+-LD:\Lab2_Ada\obj\
+-LD:\Lab2_Ada\obj\
+-LC:/gnat/2021/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/
+-static
+-static-libgcc
+C:/gnat/2021/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/libgnarl.a
+C:/gnat/2021/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/libgnat.a
+-Xlinker
+--stack=0x200000,0x1000
+-mthreads
