@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Роботи\\3 КУРС\\2 см\\ПОП\\1\\Lab1_C#\\Lab1.csproj",
+      "projectUniqueName": "D:\\Роботи\\3 КУРС\\2 см\\POP\\POP\\Lab 1\\Lab1_C#\\Lab1.csproj",
       "projectName": "Lab1",
-      "projectPath": "D:\\Роботи\\3 КУРС\\2 см\\ПОП\\1\\Lab1_C#\\Lab1.csproj",
+      "projectPath": "D:\\Роботи\\3 КУРС\\2 см\\POP\\POP\\Lab 1\\Lab1_C#\\Lab1.csproj",
       "packagesPath": "C:\\Users\\yaros\\.nuget\\packages\\",
-      "outputPath": "D:\\Роботи\\3 КУРС\\2 см\\ПОП\\1\\Lab1_C#\\obj\\",
+      "outputPath": "D:\\Роботи\\3 КУРС\\2 см\\POP\\POP\\Lab 1\\Lab1_C#\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

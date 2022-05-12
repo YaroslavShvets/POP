@@ -1,5 +1,4 @@
 package com.company;
-
 public class FindMinThread implements Runnable {
     private int startIndex, endIndex;
     private MinClass minClass;

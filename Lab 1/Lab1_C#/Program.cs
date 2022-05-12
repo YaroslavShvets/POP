@@ -6,21 +6,24 @@ namespace Lab1_cSharp
     class Program
     {
         static void Main(string[] args)
-        {
-            (new Program()).Start();
+        { 
+            (new Program()).Start(); 
         }
 
         void Start()
         {
+            Console.WriteLine("Enter number of threads:");
+            int numThread = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter step:");
+            int step = Convert.ToInt32(Console.ReadLine());
+
             BreakThread breakThread = new BreakThread();
 
-            new Thread(new MainThread(1, 2, breakThread).CalcSum).Start();
-            new Thread(new MainThread(2, 3, breakThread).CalcSum).Start();
-            //new Thread(new MainThread(3, 4, breakThread).CalcSum).Start();
-            //new Thread(new MainThread(4, 5, breakThread).CalcSum).Start();
-            //new Thread(new MainThread(5, 6, breakThread).CalcSum).Start();
-
-
+            for(int i = 1; i <= numThread; i++)
+            {
+                new Thread(new MainThread(i, step, breakThread).CalcSum).Start();
+            }
+     
             new Thread(breakThread.StopThread).Start();
         }
         class MainThread
@@ -58,7 +61,7 @@ namespace Lab1_cSharp
 
             public void StopThread()
             {
-                Thread.Sleep(10 * 1000);
+                Thread.Sleep(1 * 1000);
                 canStop = true;
             }
         }

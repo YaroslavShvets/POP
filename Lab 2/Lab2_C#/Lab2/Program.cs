@@ -68,7 +68,10 @@ namespace Program
         {
             lock (locker)
             {
-                min = value < min ? value : min;
+                if (value < min)
+                {
+                    min = value;
+                }
             }
         }
 
