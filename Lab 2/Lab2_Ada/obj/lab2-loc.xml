@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project >
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>D:\Lab2_Ada\lab2.gpr</vfs_project>
+      <vfs_file>D:\Lab2_Ada\src\threadminada.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 10" line=" 97" >
+      <vfs_project>D:\Lab2_Ada\lab2.gpr</vfs_project>
+      <vfs_file>D:\Lab2_Ada\src\threadminada.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 11" line=" 4" >
+      <vfs_project>D:\Lab2_Ada\lab2.gpr</vfs_project>
+      <vfs_file>D:\Lab2_Ada\src\threadminada.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>
