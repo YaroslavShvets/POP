@@ -15,7 +15,6 @@ public class Main {
 
         Thread[] threads = minClass.threadsMin(threadsNum);
 
-        // Очікування завершення всих потоків
         boolean notFinished = true;
         while (notFinished){
             for(Thread t : threads){
@@ -27,8 +26,6 @@ public class Main {
             }
         }
 
-        // Перевірка в межах одного потоку
-        int[] checkMin = minClass.partMin(0, arrLen);
         System.out.println("Result: nums[" + minClass.minIndex + "] = " + minClass.minValue );
     }
 }
