@@ -1,79 +1,116 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace Program
+namespace Lab2
 {
-    class Program
+    internal class Program
     {
-        private static Random rnd = new Random();
+        private static readonly int dim = 10000000;
+        private static readonly int threadNum = 3;
+
+        private readonly Thread[] thread = new Thread[threadNum];
+
         static void Main(string[] args)
         {
-            new Thread(() => MainThread()).Start();
+            Program main = new Program();
+            main.InitArr();
+            Console.WriteLine(main.PartMin(0, dim));
 
+            Console.WriteLine(main.ParallelMin());
+            Console.ReadKey();
         }
-        static void MainThread()
+
+        private int threadCount = 0;
+
+        private long ParallelMin()
         {
-            int arrayLen = rnd.Next(1, 10) * 100;
-            int[] array = new int[arrayLen];
-            Thread[] threads = new Thread[arrayLen / 100];
-            MinValue minValue = new MinValue();
-            for (int i = 0; i < arrayLen; i++)
+            int step = dim / threadNum;
+            for (int i = 0; i < threadNum - 1; i++)
             {
-                array[i] = rnd.Next(-100000, 100000);
+                thread[i] = new Thread(StarterThread);
+                thread[i].Start(new Bound(i * step, (i + 1) * step));
             }
-            for (int i = 0; i < arrayLen / 100; i++)
+            thread[threadNum - 1] = new Thread(StarterThread);
+            thread[threadNum - 1].Start(new Bound((threadNum - 1) * step, dim));
+
+            lock (lockerForCount)
             {
-                int[] subarray = new int[100];
-                Array.Copy(array, i * 100, subarray, 0, 100);
-                threads[i] = new Thread(() => FindMin(subarray, minValue));
-                threads[i].Start();
-            }
-            // Очікування завершення всіх потоків
-            bool notFinished = true;
-            while (notFinished)
-            {
-                foreach (Thread t in threads)
+                while (threadCount < threadNum)
                 {
-                    if (t.ThreadState.ToString() != "Stopped")
-                    {
-                        notFinished = true;
-                        break;
-                    }
-                    notFinished = false;
+                    Monitor.Wait(lockerForCount);
                 }
             }
-            Console.WriteLine("Результат: " + minValue.min);
+            return min;
         }
 
-        static void FindMin(int[] array, MinValue minValue)
-        {
-            int min = Int32.MaxValue;
-            for (int i = 0; i < array.Length; i++)
-            {
-                
-                if (array[i] < min)
-                {
-                    min = array[i];
-                }
-            }
-            minValue.set(min);
-        }
-    }
-    class MinValue
-    {
-        public object locker = new();
-        public int min = Int32.MaxValue;
+        private readonly int[] arr = new int[dim];
 
-        public void set(int value)
+        private void InitArr()
         {
-            lock (locker)
+            Random r = new Random();
+            for (int i = 0; i < dim; i++)
             {
-                if (value < min)
-                {
-                    min = value;
-                }
+                arr[i] = r.Next(-20, 20);
             }
         }
 
+        class Bound
+        {
+            public Bound(int startIndex, int finishIndex)
+            {
+                StartIndex = startIndex;
+                FinishIndex = finishIndex;
+            }
+
+            public int StartIndex { get; set; }
+            public int FinishIndex { get; set; }
+        }
+
+        private readonly object lockerForMin = new object();
+        private void StarterThread(object param)
+        {
+            if (param is Bound)
+            {
+                long min = PartMin((param as Bound).StartIndex, (param as Bound).FinishIndex);
+
+                lock (lockerForMin)
+                {
+                    CollectMin(min);
+                }
+                IncThreadCount();
+            }
+        }
+
+        private readonly object lockerForCount = new object();
+        private void IncThreadCount()
+        {
+            lock (lockerForCount)
+            {
+                threadCount++;
+                Monitor.Pulse(lockerForCount);
+            }
+        }
+
+        private long min = int.MaxValue;
+        public void CollectMin(long min)
+        {
+            if (min < this.min)
+                this.min = min;
+        }
+
+        public long PartMin(int startIndex, int finishIndex)
+        {
+            int min = int.MaxValue;
+            for (int i = startIndex; i < finishIndex; i++)
+            {
+                if (arr[i] < min)
+                    min = arr[i];
+            }
+            return min;
+        }
     }
 }
